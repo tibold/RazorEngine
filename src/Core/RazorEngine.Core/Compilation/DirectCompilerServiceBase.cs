@@ -102,7 +102,7 @@
             var result = Compile(context);
             var compileResult = result.Item1;
 
-            if (compileResult.Errors != null && compileResult.Errors.Count > 0)
+            if (compileResult.Errors != null && compileResult.Errors.Count > 0 && compileResult.Errors.OfType<CompilerError>().Any(error => !error.IsWarning))
                 throw new TemplateCompilationException(compileResult.Errors, result.Item2, context.TemplateContent);
 
             return Tuple.Create(
